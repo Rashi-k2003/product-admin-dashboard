@@ -25,5 +25,5 @@ A small admin dashboard to manage products, built with Next.js, React, Tailwind 
 ## My approach and notes
 - **Search vs. category filter**: DummyJSON can't search and filter by category at the same time, so search takes priority — the category dropdown disables itself while a search query is active, with a short note shown to the user explaining why.
 - **Add/edit/delete persistence**: DummyJSON's write endpoints don't actually persist changes server-side. The app reflects each change in local state immediately after a successful API call, so the flow is fully demonstrable even though a page refresh would revert it.
-- **One problem I faced and how I fixed it**: [Rashi — fill this in with your own words, e.g. the debounce/race-condition issue or the search/category conflict, and what your actual fix was]
+- **One problem I faced and how I fixed it**: When typing quickly in the search box, older slow API responses would sometimes arrive after newer ones and overwrite the correct results on screen. I fixed this using an AbortController that cancels the previous request every time a new search fires, so only the latest response ever updates the product list.
 - **Where AI helped**: I used Claude to help scaffold the shared Axios instance, the debounce hook, and the URL-param syncing pattern, then reviewed, tested, and adapted every file myself.
